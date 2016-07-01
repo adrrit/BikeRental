@@ -12,6 +12,6 @@
                      Title="Bike Rental HG" 
                       >
     <Grid>
-            
+        <ContentControl x:Name="ActiveItem"  />
     </Grid>
 </Controls:MetroWindow>
