@@ -3,11 +3,24 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              xmlns:local="clr-namespace:BikeRental.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="600" d:DesignWidth="950">
     <Grid>
-        <Label x:Name="label" Content="Label" HorizontalAlignment="Left" Margin="48,110,0,0" VerticalAlignment="Top"/>
+        <TextBox Name="RoomNumber" IsEnabled="False" HorizontalAlignment="Left" FontSize="16" Height="31" Margin="131,12,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="158"/>
+        <Label Name="Label1" Content="Numer pokoju:" FontSize="16" HorizontalAlignment="Left" Margin="10,12,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="Button7" IsEnabled="{Binding ButtonEnableState}" Style="{DynamicResource SquareButtonStyle}" Content="7" FontSize="40" HorizontalAlignment="Left" Margin="10,62,0,0" VerticalAlignment="Top" Width="80" Height="65"/>
+        <Button x:Name="Button8" IsEnabled="{Binding ButtonEnableState}" Style="{DynamicResource SquareButtonStyle}" Content="8" FontSize="40" HorizontalAlignment="Left" Margin="95,62,0,0" VerticalAlignment="Top" Width="80" Height="65"/>
+        <Button x:Name="Button9" IsEnabled="{Binding ButtonEnableState}" Style="{DynamicResource SquareButtonStyle}" Content="9" FontSize="40" HorizontalAlignment="Left" Margin="180,62,0,0" VerticalAlignment="Top" Width="80" Height="65"/>
+        <Button x:Name="Button4" IsEnabled="{Binding ButtonEnableState}" Style="{DynamicResource SquareButtonStyle}" Content="4" FontSize="40" HorizontalAlignment="Left" Margin="10,132,0,0" VerticalAlignment="Top" Width="80" Height="65"/>
+        <Button x:Name="Button5" IsEnabled="{Binding ButtonEnableState}" Style="{DynamicResource SquareButtonStyle}" Content="5" FontSize="40" HorizontalAlignment="Left" Margin="95,132,0,0" VerticalAlignment="Top" Width="80" Height="65"/>
+        <Button x:Name="Button6" IsEnabled="{Binding ButtonEnableState}" Style="{DynamicResource SquareButtonStyle}" Content="6" FontSize="40" HorizontalAlignment="Left" Margin="180,132,0,0" VerticalAlignment="Top" Width="80" Height="65"/>
+        <Button x:Name="Button1" IsEnabled="{Binding ButtonEnableState}" Style="{DynamicResource SquareButtonStyle}" Content="1" FontSize="40" HorizontalAlignment="Left" Margin="10,202,0,0" VerticalAlignment="Top" Width="80" Height="65"/>
+        <Button x:Name="Button2" IsEnabled="{Binding ButtonEnableState}" Style="{DynamicResource SquareButtonStyle}" Content="2" FontSize="40" HorizontalAlignment="Left" Margin="95,202,0,0" VerticalAlignment="Top" Width="80" Height="65"/>
+        <Button x:Name="Button3" IsEnabled="{Binding ButtonEnableState}" Style="{DynamicResource SquareButtonStyle}" Content="3" FontSize="40" HorizontalAlignment="Left" Margin="180,202,0,0" VerticalAlignment="Top" Width="80" Height="65"/>
+        <Button x:Name="Button0" IsEnabled="{Binding ButtonEnableState}" Style="{DynamicResource SquareButtonStyle}" Content="0" FontSize="40" HorizontalAlignment="Left" Margin="10,272,0,0" VerticalAlignment="Top" Width="165" Height="65"/>
+        <Button x:Name="ButtonDel" Style="{DynamicResource SquareButtonStyle}" Content="clr" FontSize="40" HorizontalAlignment="Left" Margin="180,272,0,0" VerticalAlignment="Top" Width="80" Height="65"/>
 
     </Grid>
 </UserControl>
