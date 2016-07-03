@@ -26,7 +26,7 @@
         <Button x:Name="Button3" cal:Message.Attach="[Event Click] = [Action AddNumber(3)]" IsEnabled="{Binding ButtonEnableState}" Style="{DynamicResource SquareButtonStyle}" Content="3" FontSize="40" HorizontalAlignment="Left" Margin="180,202,0,0" VerticalAlignment="Top" Width="80" Height="65"/>
         <Button x:Name="Button0" cal:Message.Attach="[Event Click] = [Action AddNumber(0)]" IsEnabled="{Binding ButtonEnableState}" Style="{DynamicResource SquareButtonStyle}" Content="0" FontSize="40" HorizontalAlignment="Left" Margin="10,272,0,0" VerticalAlignment="Top" Width="165" Height="65"/>
         <Button x:Name="ButtonDel" cal:Message.Attach="[Event Click] = [Action ClearNumber()]" Style="{DynamicResource SquareButtonStyle}" Content="clr" FontSize="40" HorizontalAlignment="Left" Margin="180,272,0,0" VerticalAlignment="Top" Width="80" Height="65"/>
-        <DataGrid x:Name="RoomGuestsDataGird" Grid.Column="1" HorizontalAlignment="Left" Margin="10,12,0,0" VerticalAlignment="Top" Height="185" Width="658"/>
+        <DataGrid x:Name="GuestRoom" Grid.Column="1" HorizontalAlignment="Left" Margin="10,12,0,0" VerticalAlignment="Top" Height="185" Width="658"/>
 
     </Grid>
 </UserControl>

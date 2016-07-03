@@ -22,6 +22,7 @@ namespace BikeRental.ViewModels
         /// </summary>
         private string _roomNumber;
         private bool _buttonEnableState = true;
+              
 
         public MainViewModel(IEventAggregator eventAggregator)
         {
@@ -29,20 +30,41 @@ namespace BikeRental.ViewModels
             _eventAggregator = eventAggregator;
             _eventAggregator.Subscribe(this);
 
+            GuestRoom = new BindableCollection<Guest>();
 
-            using (var mysql = new MysqlSupport())
+            //using (var mysql = new MysqlSupport())
+            //{
+            //    //for testing
+            //    mysql.Query = "select nrp from prac_table limit 2;";
+            //    foreach(var row in mysql.ExecuteQuery())
+            //    {
+            //        MessageBox.Show(row["nrp"].ToString());
+            //    }
+            //}
+
+
+        }
+
+        private BindableCollection<Guest> _guestRoom;
+        public BindableCollection<Guest> GuestRoom
+        {
+            get { return _guestRoom; }
+            set
             {
-                //for testing
-                mysql.Query = "select nrp from prac_table limit 2;";
-                foreach(var row in mysql.ExecuteQuery())
-                {
-                    MessageBox.Show(row["nrp"].ToString());
-                }
+                _guestRoom = value;
+                NotifyOfPropertyChange(() => GuestRoom);
             }
-           
-        }      
-       
-
+        }
+        private Guest _selectedGuestRoom;
+        public Guest SelectedGuestRoom
+        {
+            get { return _selectedGuestRoom; }
+            set
+            {
+                _selectedGuestRoom = value;
+                NotifyOfPropertyChange(() => SelectedGuestRoom);
+            }
+        }
         #region public properties
         public string RoomNumber
         {
@@ -100,6 +122,13 @@ namespace BikeRental.ViewModels
         public void ClearNumber()
         {
             RoomNumber = "";
+            
+            GuestRoom.Add(new Guest
+            {//tmp testing
+                RoomNumber = "77070",
+                Name = "asd",
+                Surname = "asdasd"
+            });
         }
         #endregion
     }

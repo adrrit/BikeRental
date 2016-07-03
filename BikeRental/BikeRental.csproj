@@ -89,6 +89,7 @@
     <Compile Include="Classes\ReadWriteConfiguration.cs" />
     <Compile Include="Interfaces\IErrorLogging.cs" />
     <Compile Include="Notifications\SimpleMessageBox.cs" />
+    <Compile Include="POCO\Guest.cs" />
     <Compile Include="POCO\MysqlConfig.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
