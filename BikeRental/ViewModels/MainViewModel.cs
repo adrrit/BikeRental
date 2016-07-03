@@ -1,5 +1,8 @@
-﻿using BikeRental.Notifications;
+﻿using BikeRental.Classes;
+using BikeRental.Notifications;
+using BikeRental.POCO;
 using Caliburn.Micro;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,14 +16,32 @@ namespace BikeRental.ViewModels
     {
         //uchwyt referencji event aggregatora
         private readonly IEventAggregator _eventAggregator;
+
+        /// <summary>
+        /// private 
+        /// </summary>
         private string _roomNumber;
+        private bool _buttonEnableState = true;
 
         public MainViewModel(IEventAggregator eventAggregator)
         {
             //referencja eventAggregatora
             _eventAggregator = eventAggregator;
             _eventAggregator.Subscribe(this);
-        }
+
+
+            using (var mysql = new MysqlSupport())
+            {
+                //for testing
+                mysql.Query = "select nrp from prac_table limit 2;";
+                foreach(var row in mysql.ExecuteQuery())
+                {
+                    MessageBox.Show(row["nrp"].ToString());
+                }
+            }
+           
+        }      
+       
 
         #region public properties
         public string RoomNumber
@@ -54,8 +75,7 @@ namespace BikeRental.ViewModels
             _simpleMessage.ShowMessage("Hi", "OK");
 
         }
-
-        private bool _buttonEnableState = true;
+       
         public bool ButtonEnableState
         {
             get
@@ -69,7 +89,6 @@ namespace BikeRental.ViewModels
             }
         }
         #endregion
-
         #region button bindings
         public void AddNumber(string number)
         {           
