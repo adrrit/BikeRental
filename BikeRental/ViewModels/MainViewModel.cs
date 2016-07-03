@@ -1,4 +1,5 @@
-﻿using Caliburn.Micro;
+﻿using BikeRental.Notifications;
+using Caliburn.Micro;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,7 @@ namespace BikeRental.ViewModels
 
         public MainViewModel(IEventAggregator eventAggregator)
         {
-            //pobranie refernecji z eventAggregatora
+            //referencja eventAggregatora
             _eventAggregator = eventAggregator;
             _eventAggregator.Subscribe(this);
         }
@@ -41,10 +42,18 @@ namespace BikeRental.ViewModels
                     else
                     {
                         ButtonEnableState = false;
+                        SelectRoom();
                     }
                 }
             }
-        }      
+        }   
+          
+        private void SelectRoom()
+        {
+            var _simpleMessage = new SimpleMessageBox();
+            _simpleMessage.ShowMessage("Hi", "OK");
+
+        }
 
         private bool _buttonEnableState = true;
         public bool ButtonEnableState

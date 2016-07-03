@@ -10,11 +10,11 @@
              d:DesignHeight="600" d:DesignWidth="950">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="272*"/>
-            <ColumnDefinition Width="679*"/>
+            <ColumnDefinition Width="270*"/>
+            <ColumnDefinition Width="681*"/>
         </Grid.ColumnDefinitions>
         <TextBox Name="RoomNumber" IsEnabled="False" HorizontalAlignment="Left" FontSize="16" Height="31" Margin="131,12,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="129"/>
-        <Label Name="Label1" Content="Numer pokoju:" FontSize="16" HorizontalAlignment="Left" Margin="10,12,0,0" VerticalAlignment="Top"/>
+        <Label Name="Label1" Content="Numer pokoju:" FontSize="16" HorizontalAlignment="Left" Margin="10,12,0,0" VerticalAlignment="Top" Height="31" Width="116"/>
         <Button x:Name="Button7" cal:Message.Attach="[Event Click] = [Action AddNumber(7)]" IsEnabled="{Binding ButtonEnableState}" Style="{DynamicResource SquareButtonStyle}" Content="7" FontSize="40" HorizontalAlignment="Left" Margin="10,62,0,0" VerticalAlignment="Top" Width="80" Height="65"/>
         <Button x:Name="Button8" cal:Message.Attach="[Event Click] = [Action AddNumber(8)]" IsEnabled="{Binding ButtonEnableState}" Style="{DynamicResource SquareButtonStyle}" Content="8" FontSize="40" HorizontalAlignment="Left" Margin="95,62,0,0" VerticalAlignment="Top" Width="80" Height="65"/>
         <Button x:Name="Button9" cal:Message.Attach="[Event Click] = [Action AddNumber(9)]" IsEnabled="{Binding ButtonEnableState}" Style="{DynamicResource SquareButtonStyle}" Content="9" FontSize="40" HorizontalAlignment="Left" Margin="180,62,0,0" VerticalAlignment="Top" Width="80" Height="65"/>
