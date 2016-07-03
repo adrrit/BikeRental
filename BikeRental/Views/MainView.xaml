@@ -5,22 +5,28 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              xmlns:local="clr-namespace:BikeRental.Views"
+             xmlns:cal="http://www.caliburnproject.org"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="950">
     <Grid>
-        <TextBox Name="RoomNumber" IsEnabled="False" HorizontalAlignment="Left" FontSize="16" Height="31" Margin="131,12,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="158"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="272*"/>
+            <ColumnDefinition Width="679*"/>
+        </Grid.ColumnDefinitions>
+        <TextBox Name="RoomNumber" IsEnabled="False" HorizontalAlignment="Left" FontSize="16" Height="31" Margin="131,12,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="129"/>
         <Label Name="Label1" Content="Numer pokoju:" FontSize="16" HorizontalAlignment="Left" Margin="10,12,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="Button7" IsEnabled="{Binding ButtonEnableState}" Style="{DynamicResource SquareButtonStyle}" Content="7" FontSize="40" HorizontalAlignment="Left" Margin="10,62,0,0" VerticalAlignment="Top" Width="80" Height="65"/>
-        <Button x:Name="Button8" IsEnabled="{Binding ButtonEnableState}" Style="{DynamicResource SquareButtonStyle}" Content="8" FontSize="40" HorizontalAlignment="Left" Margin="95,62,0,0" VerticalAlignment="Top" Width="80" Height="65"/>
-        <Button x:Name="Button9" IsEnabled="{Binding ButtonEnableState}" Style="{DynamicResource SquareButtonStyle}" Content="9" FontSize="40" HorizontalAlignment="Left" Margin="180,62,0,0" VerticalAlignment="Top" Width="80" Height="65"/>
-        <Button x:Name="Button4" IsEnabled="{Binding ButtonEnableState}" Style="{DynamicResource SquareButtonStyle}" Content="4" FontSize="40" HorizontalAlignment="Left" Margin="10,132,0,0" VerticalAlignment="Top" Width="80" Height="65"/>
-        <Button x:Name="Button5" IsEnabled="{Binding ButtonEnableState}" Style="{DynamicResource SquareButtonStyle}" Content="5" FontSize="40" HorizontalAlignment="Left" Margin="95,132,0,0" VerticalAlignment="Top" Width="80" Height="65"/>
-        <Button x:Name="Button6" IsEnabled="{Binding ButtonEnableState}" Style="{DynamicResource SquareButtonStyle}" Content="6" FontSize="40" HorizontalAlignment="Left" Margin="180,132,0,0" VerticalAlignment="Top" Width="80" Height="65"/>
-        <Button x:Name="Button1" IsEnabled="{Binding ButtonEnableState}" Style="{DynamicResource SquareButtonStyle}" Content="1" FontSize="40" HorizontalAlignment="Left" Margin="10,202,0,0" VerticalAlignment="Top" Width="80" Height="65"/>
-        <Button x:Name="Button2" IsEnabled="{Binding ButtonEnableState}" Style="{DynamicResource SquareButtonStyle}" Content="2" FontSize="40" HorizontalAlignment="Left" Margin="95,202,0,0" VerticalAlignment="Top" Width="80" Height="65"/>
-        <Button x:Name="Button3" IsEnabled="{Binding ButtonEnableState}" Style="{DynamicResource SquareButtonStyle}" Content="3" FontSize="40" HorizontalAlignment="Left" Margin="180,202,0,0" VerticalAlignment="Top" Width="80" Height="65"/>
-        <Button x:Name="Button0" IsEnabled="{Binding ButtonEnableState}" Style="{DynamicResource SquareButtonStyle}" Content="0" FontSize="40" HorizontalAlignment="Left" Margin="10,272,0,0" VerticalAlignment="Top" Width="165" Height="65"/>
-        <Button x:Name="ButtonDel" Style="{DynamicResource SquareButtonStyle}" Content="clr" FontSize="40" HorizontalAlignment="Left" Margin="180,272,0,0" VerticalAlignment="Top" Width="80" Height="65"/>
+        <Button x:Name="Button7" cal:Message.Attach="[Event Click] = [Action AddNumber(7)]" IsEnabled="{Binding ButtonEnableState}" Style="{DynamicResource SquareButtonStyle}" Content="7" FontSize="40" HorizontalAlignment="Left" Margin="10,62,0,0" VerticalAlignment="Top" Width="80" Height="65"/>
+        <Button x:Name="Button8" cal:Message.Attach="[Event Click] = [Action AddNumber(8)]" IsEnabled="{Binding ButtonEnableState}" Style="{DynamicResource SquareButtonStyle}" Content="8" FontSize="40" HorizontalAlignment="Left" Margin="95,62,0,0" VerticalAlignment="Top" Width="80" Height="65"/>
+        <Button x:Name="Button9" cal:Message.Attach="[Event Click] = [Action AddNumber(9)]" IsEnabled="{Binding ButtonEnableState}" Style="{DynamicResource SquareButtonStyle}" Content="9" FontSize="40" HorizontalAlignment="Left" Margin="180,62,0,0" VerticalAlignment="Top" Width="80" Height="65"/>
+        <Button x:Name="Button4" cal:Message.Attach="[Event Click] = [Action AddNumber(4)]" IsEnabled="{Binding ButtonEnableState}" Style="{DynamicResource SquareButtonStyle}" Content="4" FontSize="40" HorizontalAlignment="Left" Margin="10,132,0,0" VerticalAlignment="Top" Width="80" Height="65"/>
+        <Button x:Name="Button5" cal:Message.Attach="[Event Click] = [Action AddNumber(5)]" IsEnabled="{Binding ButtonEnableState}" Style="{DynamicResource SquareButtonStyle}" Content="5" FontSize="40" HorizontalAlignment="Left" Margin="95,132,0,0" VerticalAlignment="Top" Width="80" Height="65"/>
+        <Button x:Name="Button6" cal:Message.Attach="[Event Click] = [Action AddNumber(6)]" IsEnabled="{Binding ButtonEnableState}" Style="{DynamicResource SquareButtonStyle}" Content="6" FontSize="40" HorizontalAlignment="Left" Margin="180,132,0,0" VerticalAlignment="Top" Width="80" Height="65"/>
+        <Button x:Name="Button1" cal:Message.Attach="[Event Click] = [Action AddNumber(1)]" IsEnabled="{Binding ButtonEnableState}" Style="{DynamicResource SquareButtonStyle}" Content="1" FontSize="40" HorizontalAlignment="Left" Margin="10,202,0,0" VerticalAlignment="Top" Width="80" Height="65"/>
+        <Button x:Name="Button2" cal:Message.Attach="[Event Click] = [Action AddNumber(2)]" IsEnabled="{Binding ButtonEnableState}" Style="{DynamicResource SquareButtonStyle}" Content="2" FontSize="40" HorizontalAlignment="Left" Margin="95,202,0,0" VerticalAlignment="Top" Width="80" Height="65"/>
+        <Button x:Name="Button3" cal:Message.Attach="[Event Click] = [Action AddNumber(3)]" IsEnabled="{Binding ButtonEnableState}" Style="{DynamicResource SquareButtonStyle}" Content="3" FontSize="40" HorizontalAlignment="Left" Margin="180,202,0,0" VerticalAlignment="Top" Width="80" Height="65"/>
+        <Button x:Name="Button0" cal:Message.Attach="[Event Click] = [Action AddNumber(0)]" IsEnabled="{Binding ButtonEnableState}" Style="{DynamicResource SquareButtonStyle}" Content="0" FontSize="40" HorizontalAlignment="Left" Margin="10,272,0,0" VerticalAlignment="Top" Width="165" Height="65"/>
+        <Button x:Name="ButtonDel" cal:Message.Attach="[Event Click] = [Action ClearNumber()]" Style="{DynamicResource SquareButtonStyle}" Content="clr" FontSize="40" HorizontalAlignment="Left" Margin="180,272,0,0" VerticalAlignment="Top" Width="80" Height="65"/>
+        <DataGrid x:Name="dataGrid" Grid.Column="1" HorizontalAlignment="Left" Margin="10,12,0,0" VerticalAlignment="Top" Height="185" Width="658"/>
 
     </Grid>
 </UserControl>

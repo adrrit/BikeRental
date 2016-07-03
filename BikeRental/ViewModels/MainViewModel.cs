@@ -33,7 +33,15 @@ namespace BikeRental.ViewModels
                 if(_roomNumber!=value)
                 {
                     _roomNumber = value;
-                    NotifyOfPropertyChange(() => RoomNumber);                    
+                    NotifyOfPropertyChange(() => RoomNumber);  
+                    if(_roomNumber.Length!=3)
+                    {
+                        ButtonEnableState = true;
+                    }
+                    else
+                    {
+                        ButtonEnableState = false;
+                    }
                 }
             }
         }      
@@ -50,6 +58,20 @@ namespace BikeRental.ViewModels
                 _buttonEnableState = value;
                 NotifyOfPropertyChange(() => ButtonEnableState);
             }
+        }
+        #endregion
+
+        #region button bindings
+        public void AddNumber(string number)
+        {           
+            if (number.Length>0)
+            {
+                RoomNumber += number;
+            }           
+        }
+        public void ClearNumber()
+        {
+            RoomNumber = "";
         }
         #endregion
     }
