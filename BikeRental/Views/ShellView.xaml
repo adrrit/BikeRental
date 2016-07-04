@@ -9,7 +9,7 @@
              d:DesignHeight="300" d:DesignWidth="300"
                        GlowBrush="{DynamicResource AccentColorBrush}"
                       Height="1000" Width="1920"  ResizeMode="CanResizeWithGrip"  WindowStartupLocation="CenterScreen" WindowState="Maximized"
-                     Title="Bike Rental HG" 
+                     Title="Bike Rental HG" Icon="/BikeRental;component/Sonya-Swarm-Bike.ico" 
                       >
     <Grid>
         <ContentControl x:Name="ActiveItem"  />

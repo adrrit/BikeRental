@@ -69,6 +69,8 @@ namespace BikeRental.ViewModels
                 "++++++++ OK - zapisz ++++++++",
                 "-------- Anuluj! --------");
 
+
+
             if(_messageBoxResoult == MessageDialogResult.Affirmative)
             {
                 
@@ -195,7 +197,9 @@ namespace BikeRental.ViewModels
         {            
             RoomNumber = "";
             GuestRoom.Clear();
-            ClearPrice();            
+            ClearPrice();
+            
+
         }
         public void ClearPrice()
         {
