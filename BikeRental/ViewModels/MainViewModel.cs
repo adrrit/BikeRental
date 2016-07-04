@@ -2,13 +2,6 @@
 using BikeRental.Notifications;
 using BikeRental.POCO;
 using Caliburn.Micro;
-using MySql.Data.MySqlClient;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 
 namespace BikeRental.ViewModels
 {
@@ -22,7 +15,10 @@ namespace BikeRental.ViewModels
         /// </summary>
         private string _roomNumber;
         private bool _buttonEnableState = true;
-              
+        private bool _priceButtonEnableState = false;
+        private string _priceToPay;
+        private bool _buttonAcceptPriceEnableState = false;
+
 
         public MainViewModel(IEventAggregator eventAggregator)
         {
@@ -31,8 +27,6 @@ namespace BikeRental.ViewModels
             _eventAggregator.Subscribe(this);
             
         }
-
-        
 
         private BindableCollection<Guest> _guestRoom = new BindableCollection<Guest>();
         public BindableCollection<Guest> GuestRoom
@@ -45,16 +39,38 @@ namespace BikeRental.ViewModels
             }
         }
         private Guest _selectedGuestRoom;
-        public Guest SelectedGuestRoom
+        public Guest SelectedGuestRoom //null jeśli nie ma wybranych wierszy
         {
             get { return _selectedGuestRoom; }
             set
             {
                 _selectedGuestRoom = value;
                 NotifyOfPropertyChange(() => SelectedGuestRoom);
+                if (SelectedGuestRoom !=null)                
+                    PriceButtonEnableState = true;                
+                else
+                    PriceButtonEnableState = false;                
             }
         }
+        public void ConfirmPrice()
+        {
+            //drukowanie RP, zapis do bazy
+        }
+
         #region public properties
+        public string PriceToPay
+        {
+            get { return _priceToPay; }
+            set
+            {
+                _priceToPay = value;
+                NotifyOfPropertyChange(() => PriceToPay);
+                if (PriceToPay.Length > 0)
+                    ButtonAcceptPriceEnableState = true;
+                else
+                    ButtonAcceptPriceEnableState = false;
+            }
+        }
         public string RoomNumber
         {
             get
@@ -73,7 +89,7 @@ namespace BikeRental.ViewModels
                     }
                     else
                     {
-                        ButtonEnableState = false;
+                        ButtonEnableState = false;                        
                         SelectRoom();
                     }
                 }
@@ -95,6 +111,7 @@ namespace BikeRental.ViewModels
                 GuestRoom.AddRange(_roomGuests);
             }
         }
+
         
         public bool ButtonEnableState
         {
@@ -108,6 +125,32 @@ namespace BikeRental.ViewModels
                 NotifyOfPropertyChange(() => ButtonEnableState);
             }
         }
+
+        public bool PriceButtonEnableState
+        {
+            get
+            {
+                return _priceButtonEnableState;
+            }
+            set
+            {
+                _priceButtonEnableState = value;
+                NotifyOfPropertyChange(() => PriceButtonEnableState);
+            }
+        }
+
+        public bool ButtonAcceptPriceEnableState
+        {
+            get
+            {
+                return _buttonAcceptPriceEnableState;
+            }
+            set
+            {
+                _buttonAcceptPriceEnableState = value;
+                NotifyOfPropertyChange(() => ButtonAcceptPriceEnableState);
+            }
+        }
         #endregion
         #region button bindings
         public void AddNumber(string number)
@@ -117,10 +160,21 @@ namespace BikeRental.ViewModels
                 RoomNumber += number;
             }           
         }
+        public void AddPrice(string number)
+        {
+            if (number.Length > 0)
+            {
+                PriceToPay += number;
+            }
+        }
         public void ClearNumber()
         {            
             RoomNumber = "";
             GuestRoom.Clear();            
+        }
+        public void ClearPrice()
+        {
+            PriceToPay = "";
         }
         #endregion
     }
