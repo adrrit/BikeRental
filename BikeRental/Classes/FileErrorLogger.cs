@@ -19,8 +19,8 @@ namespace BikeRental.Classes
             }
             catch (FileNotFoundException)
             {
-                var _simpleNotification = new SimpleMessageBox();
-                _simpleNotification.ShowMessage("File Error Logger", "Nie można zapisać do pliku informacji:" + message);
+                var _simpleNotification = new MetroMessageBox();
+                _simpleNotification.ShowSimpleMessage("File Error Logger", "Nie można zapisać do pliku informacji:" + message);
             }
 
         }

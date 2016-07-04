@@ -2,6 +2,7 @@
 using BikeRental.Notifications;
 using BikeRental.POCO;
 using Caliburn.Micro;
+using MahApps.Metro.Controls.Dialogs;
 
 namespace BikeRental.ViewModels
 {
@@ -52,9 +53,32 @@ namespace BikeRental.ViewModels
                     PriceButtonEnableState = false;                
             }
         }
-        public void ConfirmPrice()
+        /// <summary>
+        /// drukowanie RP, zapis do bazy
+        /// </summary>
+        public async void ConfirmPrice()
         {
-            //drukowanie RP, zapis do bazy
+            #region Print
+
+
+            #endregion
+
+            var _metroMessageBox = new MetroMessageBox();
+            var _messageBoxResoult = await _metroMessageBox.ShowMessage("Czy zapisać?", 
+                "Sprawdź poprawność wydruku.", 
+                "++++++++ OK - zapisz ++++++++",
+                "-------- Anuluj! --------");
+
+            if(_messageBoxResoult == MessageDialogResult.Affirmative)
+            {
+                
+
+                ClearNumber(); //Czyść wszystko po poprawnym zapisaniu, drukowaniu
+            }
+            else
+            {
+                //zamknij MessageBox
+            }
         }
 
         #region public properties
@@ -102,8 +126,8 @@ namespace BikeRental.ViewModels
             var _roomGuests = GuestService.GetGuests(RoomNumber); //meldunki pokoju z Mysql
             if (_roomGuests.Count == 0)
             {
-                var message = new SimpleMessageBox();
-                message.ShowMessage("Informacja", "Brak meldnuków w wybranym pokoju");
+                var message = new MetroMessageBox();
+                message.ShowSimpleMessage("Informacja", "Brak meldnuków w wybranym pokoju");
                 RoomNumber = "";
             }
             else
@@ -170,7 +194,8 @@ namespace BikeRental.ViewModels
         public void ClearNumber()
         {            
             RoomNumber = "";
-            GuestRoom.Clear();            
+            GuestRoom.Clear();
+            ClearPrice();            
         }
         public void ClearPrice()
         {
