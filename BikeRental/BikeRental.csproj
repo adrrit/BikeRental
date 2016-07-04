@@ -85,7 +85,9 @@
     </Compile>
     <Compile Include="AppBootstrapper.cs" />
     <Compile Include="Classes\FileErrorLogger.cs" />
+    <Compile Include="Classes\GuestService.cs" />
     <Compile Include="Classes\MysqlSupport.cs" />
+    <Compile Include="Classes\PlChar.cs" />
     <Compile Include="Classes\ReadWriteConfiguration.cs" />
     <Compile Include="Interfaces\IErrorLogging.cs" />
     <Compile Include="Notifications\SimpleMessageBox.cs" />

@@ -29,23 +29,12 @@ namespace BikeRental.ViewModels
             //referencja eventAggregatora
             _eventAggregator = eventAggregator;
             _eventAggregator.Subscribe(this);
-
-            GuestRoom = new BindableCollection<Guest>();
-
-            //using (var mysql = new MysqlSupport())
-            //{
-            //    //for testing
-            //    mysql.Query = "select nrp from prac_table limit 2;";
-            //    foreach(var row in mysql.ExecuteQuery())
-            //    {
-            //        MessageBox.Show(row["nrp"].ToString());
-            //    }
-            //}
-
-
+            
         }
 
-        private BindableCollection<Guest> _guestRoom;
+        
+
+        private BindableCollection<Guest> _guestRoom = new BindableCollection<Guest>();
         public BindableCollection<Guest> GuestRoom
         {
             get { return _guestRoom; }
@@ -91,13 +80,22 @@ namespace BikeRental.ViewModels
             }
         }   
           
+        //jeśli wprowadzono 3 cyfry pobierz meldunki pokoju
         private void SelectRoom()
         {
-            var _simpleMessage = new SimpleMessageBox();
-            _simpleMessage.ShowMessage("Hi", "OK");
-
+            var _roomGuests = GuestService.GetGuests(RoomNumber); //meldunki pokoju z Mysql
+            if (_roomGuests.Count == 0)
+            {
+                var message = new SimpleMessageBox();
+                message.ShowMessage("Informacja", "Brak meldnuków w wybranym pokoju");
+                RoomNumber = "";
+            }
+            else
+            {
+                GuestRoom.AddRange(_roomGuests);
+            }
         }
-       
+        
         public bool ButtonEnableState
         {
             get
@@ -120,15 +118,9 @@ namespace BikeRental.ViewModels
             }           
         }
         public void ClearNumber()
-        {
+        {            
             RoomNumber = "";
-            
-            GuestRoom.Add(new Guest
-            {//tmp testing
-                RoomNumber = "77070",
-                Name = "asd",
-                Surname = "asdasd"
-            });
+            GuestRoom.Clear();            
         }
         #endregion
     }
