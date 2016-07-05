@@ -1,8 +1,12 @@
 ﻿using BikeRental.Classes;
+using BikeRental.Interfaces;
 using BikeRental.Notifications;
 using BikeRental.POCO;
+using BikeRental.ReportViewer;
 using Caliburn.Micro;
 using MahApps.Metro.Controls.Dialogs;
+using System;
+using System.Collections.Generic;
 
 namespace BikeRental.ViewModels
 {
@@ -10,6 +14,8 @@ namespace BikeRental.ViewModels
     {
         //uchwyt referencji event aggregatora
         private readonly IEventAggregator _eventAggregator;
+        //error logger
+        private readonly IErrorLogging _logger;
 
         /// <summary>
         /// private 
@@ -19,6 +25,9 @@ namespace BikeRental.ViewModels
         private bool _priceButtonEnableState = false;
         private string _priceToPay;
         private bool _buttonAcceptPriceEnableState = false;
+        private bool _toggleSwitchCheckedState = false;
+        private string _userLabel;
+
 
 
         public MainViewModel(IEventAggregator eventAggregator)
@@ -26,7 +35,12 @@ namespace BikeRental.ViewModels
             //referencja eventAggregatora
             _eventAggregator = eventAggregator;
             _eventAggregator.Subscribe(this);
-            
+
+            _logger = new FileErrorLogger();
+
+            UserLabel = "Wojciech Kukuczka";
+
+
         }
 
         private BindableCollection<Guest> _guestRoom = new BindableCollection<Guest>();
@@ -58,28 +72,59 @@ namespace BikeRental.ViewModels
         /// </summary>
         public async void ConfirmPrice()
         {
-            #region Print
-
-
-            #endregion
-
-            var _metroMessageBox = new MetroMessageBox();
-            var _messageBoxResoult = await _metroMessageBox.ShowMessage("Czy zapisać?", 
-                "Sprawdź poprawność wydruku.", 
-                "++++++++ OK - zapisz ++++++++",
-                "-------- Anuluj! --------");
-
-
-
-            if(_messageBoxResoult == MessageDialogResult.Affirmative)
+            try
             {
-                
+                #region Print
+                //pobranie następnego numeru dokumentu
+                var _serialized = new ReadWriteConfiguration<Counter>("counter.xml");
+                var _dokNumber = _serialized.ReadConfiguration();
 
-                ClearNumber(); //Czyść wszystko po poprawnym zapisaniu, drukowaniu
+                var _documentList = new List<RentalDocument>();
+
+                var _document = new RentalDocument()
+                {
+                    Date = DateTime.Now,
+                    DocNumber = String.Format("{0}/{1:00000}", "90", _dokNumber.DocumentNumber),
+                    GuestName = SelectedGuestRoom.Name,
+                    GuestSurname = SelectedGuestRoom.Surname,
+                    Price = int.Parse(PriceToPay),
+                    RoomNumber = SelectedGuestRoom.RoomNumber,
+                    UserName = UserLabel
+                };
+
+                _documentList.Add(_document);
+                for (int i = 0; i < 2; i++)
+                {
+                    RPReportWindow _dialog = new RPReportWindow(_documentList, false);
+                }
+                #endregion
+
+                var _metroMessageBox = new MetroMessageBox();
+                var _messageBoxResoult = await _metroMessageBox.ShowMessage("Czy zapisać?",
+                    "Sprawdź poprawność wydruku.",
+                    "++++++++ OK - zapisz ++++++++",
+                    "-------- Anuluj! --------");
+
+
+                if (_messageBoxResoult == MessageDialogResult.Affirmative)
+                {
+
+
+                    //Drukowanie, zapis udany - zwiększ counter
+                    _dokNumber.DocumentNumber += 1;
+                    var _serialize = new ReadWriteConfiguration<Counter>("counter.xml");
+                    _serialize.WriteConfiguration(_dokNumber);
+
+                    ClearNumber(); //Czyść wszystko po poprawnym zapisaniu, drukowaniu
+                }
+                else
+                {
+                    //zamknij MessageBox
+                }
             }
-            else
+            catch(Exception ex)
             {
-                //zamknij MessageBox
+                _logger.LoggError(ex.Message);
             }
         }
 
@@ -91,8 +136,12 @@ namespace BikeRental.ViewModels
             {
                 _priceToPay = value;
                 NotifyOfPropertyChange(() => PriceToPay);
-                if (PriceToPay.Length > 0)
-                    ButtonAcceptPriceEnableState = true;
+                int _price = 0;
+                if (int.TryParse(PriceToPay, out _price))
+                {   
+                    if (_price >0)
+                        ButtonAcceptPriceEnableState = true;
+                }
                 else
                     ButtonAcceptPriceEnableState = false;
             }
@@ -175,6 +224,28 @@ namespace BikeRental.ViewModels
             {
                 _buttonAcceptPriceEnableState = value;
                 NotifyOfPropertyChange(() => ButtonAcceptPriceEnableState);
+            }
+        }
+        public bool ToggleSwitchCheckedState
+        {
+            get { return _toggleSwitchCheckedState; }
+            set
+            {
+                _toggleSwitchCheckedState = value;
+                NotifyOfPropertyChange(() => ToggleSwitchCheckedState);
+                if (ToggleSwitchCheckedState == false)                
+                    UserLabel = "Wojciech Kukuczka";                
+                else
+                    UserLabel = "Michał Jopek";
+            }
+        }
+        public string UserLabel
+        {
+            get { return _userLabel; }
+            set
+            {
+                _userLabel = value;
+                NotifyOfPropertyChange(() => UserLabel);
             }
         }
         #endregion

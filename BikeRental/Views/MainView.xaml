@@ -58,6 +58,8 @@
         <Button x:Name="ButtonAcceptPrice" cal:Message.Attach="[Event Click] = [Action ConfirmPrice()]" IsEnabled="{Binding ButtonAcceptPriceEnableState}" Style="{DynamicResource AccentedSquareButtonStyle}" Content="OK" FontSize="80" HorizontalAlignment="Left" Margin="1069,780,0,0" VerticalAlignment="Top" Width="200" Height="180" Grid.Column="1"/>
         <TextBox x:Name="PriceToPay" Grid.Column="1" FontSize="110" IsEnabled="False" HorizontalAlignment="Left" TextAlignment="Right" Height="151" Margin="10,224,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="391"/>
         <Label x:Name="label" Content="zł" Grid.Column="1" FontSize="80" HorizontalAlignment="Left" Margin="406,256,0,0" VerticalAlignment="Top"/>
+        <Controls:ToggleSwitchButton x:Name="UserSwitch" IsChecked="{Binding ToggleSwitchCheckedState}" Grid.Column="1" HorizontalAlignment="Left" Margin="10,828,0,0" VerticalAlignment="Top" Width="269" Height="117"/>
+        <Label x:Name="UserLabel" Content="" Grid.Column="1" FontSize="50" HorizontalAlignment="Left" Margin="10,732,625,0" VerticalAlignment="Top" Width="644"/>
 
     </Grid>
 </UserControl>
