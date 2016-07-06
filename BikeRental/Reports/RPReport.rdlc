@@ -201,7 +201,7 @@
         </Paragraphs>
         <rd:DefaultName>Textbox11</rd:DefaultName>
         <Top>6.20544cm</Top>
-        <Left>0.52599cm</Left>
+        <Left>0.52598cm</Left>
         <Height>0.6cm</Height>
         <Width>4.14042cm</Width>
         <ZIndex>4</ZIndex>
@@ -417,7 +417,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>WYPOŻYCZLNIA ROWERÓW</Value>
+                <Value>WYPOŻYCZALNIA ROWERÓW</Value>
                 <Style>
                   <FontFamily>verdana</FontFamily>
                 </Style>

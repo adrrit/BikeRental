@@ -136,6 +136,10 @@
     <Compile Include="POCO\HgService.cs" />
     <Compile Include="POCO\MysqlConfig.cs" />
     <Compile Include="POCO\RentalDocument.cs" />
+    <Compile Include="POCO\RentedBike.cs" />
+    <Compile Include="ReportViewer\RentalConfirmationReportWindow.xaml.cs">
+      <DependentUpon>RentalConfirmationReportWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ReportViewer\RPReportWindow.xaml.cs">
       <DependentUpon>RPReportWindow.xaml</DependentUpon>
     </Compile>
@@ -166,9 +170,11 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Reports\RentalConfirmationReport.rdlc" />
     <EmbeddedResource Include="Reports\RPReport.rdlc" />
     <None Include="packages.config" />
     <None Include="Properties\DataSources\BikeRental.POCO.RentalDocument.datasource" />
+    <None Include="Properties\DataSources\BikeRental.POCO.RentedBike.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -179,6 +185,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="ReportViewer\RentalConfirmationReportWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ReportViewer\RPReportWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

@@ -7,6 +7,7 @@ using Caliburn.Micro;
 using MahApps.Metro.Controls.Dialogs;
 using System;
 using System.Collections.Generic;
+using System.Windows;
 
 namespace BikeRental.ViewModels
 {
@@ -27,7 +28,7 @@ namespace BikeRental.ViewModels
         private bool _buttonAcceptPriceEnableState = false;
         private bool _toggleSwitchCheckedState = false;
         private string _userLabel;
-
+        private bool _rentalConfirmationbuttonEnableState = false;
 
 
         public MainViewModel(IEventAggregator eventAggregator)
@@ -39,8 +40,6 @@ namespace BikeRental.ViewModels
             _logger = new FileErrorLogger();
 
             UserLabel = "Wojciech Kukuczka";
-
-
         }
 
         private BindableCollection<Guest> _guestRoom = new BindableCollection<Guest>();
@@ -61,10 +60,16 @@ namespace BikeRental.ViewModels
             {
                 _selectedGuestRoom = value;
                 NotifyOfPropertyChange(() => SelectedGuestRoom);
-                if (SelectedGuestRoom !=null)                
-                    PriceButtonEnableState = true;                
+                if (SelectedGuestRoom != null)
+                {
+                    PriceButtonEnableState = true;
+                    RentalConfirmationbuttonEnableState = true;
+                }
                 else
-                    PriceButtonEnableState = false;                
+                {
+                    PriceButtonEnableState = false;
+                    RentalConfirmationbuttonEnableState = false;
+                }
             }
         }
         /// <summary>
@@ -105,11 +110,8 @@ namespace BikeRental.ViewModels
                     "++++++++ OK - zapisz ++++++++",
                     "-------- Anuluj! --------");
 
-
                 if (_messageBoxResoult == MessageDialogResult.Affirmative)
                 {
-
-
                     //Drukowanie, zapis udany - zwiększ counter
                     _dokNumber.DocumentNumber += 1;
                     var _serialize = new ReadWriteConfiguration<Counter>("counter.xml");
@@ -186,8 +188,38 @@ namespace BikeRental.ViewModels
                 GuestRoom.AddRange(_roomGuests);
             }
         }
+        public void RentalConfirmation()
+        {
+            var _serialied = new ReadWriteConfiguration<List<RentedBike>>("rentHistory.xml");
+            var _rentHistory = _serialied.ReadConfiguration();
+            if(_rentHistory == null) //brak historii
+            {
+                _rentHistory = new List<RentedBike>();
+            }
 
-        
+            var _rentedBike = new RentedBike()
+            {
+                GuestNumber = SelectedGuestRoom.GuestNumber,
+                GroupNumber = SelectedGuestRoom.GroupNumber,
+                GuestType = SelectedGuestRoom.GuestType,
+                Name = SelectedGuestRoom.Name,
+                Surname = SelectedGuestRoom.Surname,
+                RoomNumber = SelectedGuestRoom.RoomNumber,
+                User = UserLabel,
+                RentalDate = DateTime.Now
+            };
+
+            _rentHistory.Add(_rentedBike);
+
+            _serialied.WriteConfiguration(_rentHistory);
+
+            var _rentedBikeToReport = new List<RentedBike>();
+            _rentedBikeToReport.Add(_rentedBike);
+
+            RentalConfirmationReportWindow _window = new RentalConfirmationReportWindow(_rentedBikeToReport, false);
+            
+            ClearNumber();
+        }
         public bool ButtonEnableState
         {
             get
@@ -237,6 +269,16 @@ namespace BikeRental.ViewModels
                     UserLabel = "Wojciech Kukuczka";                
                 else
                     UserLabel = "Michał Jopek";
+            }
+        }
+
+        public bool RentalConfirmationbuttonEnableState
+        {
+            get { return _rentalConfirmationbuttonEnableState; }
+            set
+            {
+                _rentalConfirmationbuttonEnableState = value;
+                NotifyOfPropertyChange(() => RentalConfirmationbuttonEnableState);
             }
         }
         public string UserLabel
