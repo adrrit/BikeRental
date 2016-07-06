@@ -3,7 +3,7 @@ using System;
 
 namespace BikeRental.POCO
 {
-    public class RentedBike : Guest
+    public class RentedBikeHistory : Guest
     {
 
         private string _user;

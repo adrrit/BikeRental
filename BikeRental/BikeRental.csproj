@@ -130,13 +130,14 @@
     <Compile Include="Classes\PlChar.cs" />
     <Compile Include="Classes\ReadWriteConfiguration.cs" />
     <Compile Include="Interfaces\IErrorLogging.cs" />
+    <Compile Include="Messages\NavigationMessage.cs" />
     <Compile Include="Notifications\MetroMessageBox.cs" />
     <Compile Include="POCO\Counter.cs" />
     <Compile Include="POCO\Guest.cs" />
     <Compile Include="POCO\HgService.cs" />
     <Compile Include="POCO\MysqlConfig.cs" />
     <Compile Include="POCO\RentalDocument.cs" />
-    <Compile Include="POCO\RentedBike.cs" />
+    <Compile Include="POCO\RentedBikeHistory.cs" />
     <Compile Include="ReportViewer\RentalConfirmationReportWindow.xaml.cs">
       <DependentUpon>RentalConfirmationReportWindow.xaml</DependentUpon>
     </Compile>
@@ -144,9 +145,13 @@
       <DependentUpon>RPReportWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\RentalHistoryViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="Views\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\RentalHistoryView.xaml.cs">
+      <DependentUpon>RentalHistoryView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ShellView.xaml.cs">
       <DependentUpon>ShellView.xaml</DependentUpon>
@@ -194,6 +199,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\MainView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\RentalHistoryView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

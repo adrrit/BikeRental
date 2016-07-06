@@ -1,5 +1,6 @@
 ﻿using BikeRental.Classes;
 using BikeRental.Interfaces;
+using BikeRental.Messages;
 using BikeRental.Notifications;
 using BikeRental.POCO;
 using BikeRental.ReportViewer;
@@ -7,6 +8,7 @@ using Caliburn.Micro;
 using MahApps.Metro.Controls.Dialogs;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Windows;
 
 namespace BikeRental.ViewModels
@@ -112,8 +114,28 @@ namespace BikeRental.ViewModels
 
                 if (_messageBoxResoult == MessageDialogResult.Affirmative)
                 {
-                    //Drukowanie, zapis udany - zwiększ counter
-                    _dokNumber.DocumentNumber += 1;
+                    //zapis do bazy
+                    using (var sw =new StreamWriter("sql.txt"))
+                    {
+                         sw.Write( string.Format("insert into rachpok_table "
+                                            +"(nrp, nrmel, rodzmel, nrg, datar, npx1, nru, "
+                                            +"czasu, cenajed, znizka, cenatot, czyzap, zapl, nrp2, nrrach, pozkas, komen, "
+                                            +"wys, nrrez, nrzal, npx2, nroz, wiger, ilzw, warzw) values "
+                                            +"('{0}', {1}, '{2}', {3}, '{4}', '', 534, "
+                                            +" 1, {5}, 0, {5}, 'N', 0, '','', 0, '{6}',"
+                                            +" 0, '', 0, '', 0, 0, 0, 0)",
+                                            SelectedGuestRoom.RoomNumber,
+                                            SelectedGuestRoom.GuestNumber,
+                                            SelectedGuestRoom.GuestType,
+                                            SelectedGuestRoom.GroupNumber,
+                                            DateTime.Now.ToString(),
+                                            PriceToPay,
+                                            "WR " + _document.DocNumber
+                                            ));
+                        
+                    }
+                        //Drukowanie, zapis udany - zwiększ counter
+                        _dokNumber.DocumentNumber += 1;
                     var _serialize = new ReadWriteConfiguration<Counter>("counter.xml");
                     _serialize.WriteConfiguration(_dokNumber);
 
@@ -188,16 +210,24 @@ namespace BikeRental.ViewModels
                 GuestRoom.AddRange(_roomGuests);
             }
         }
+        public void RentalHistory()
+        {
+            var message = new NavigationMessage()
+            {
+                Destination = "RentalHistoryViewModel"
+            };
+            _eventAggregator.PublishOnUIThread(message);
+        }
         public void RentalConfirmation()
         {
-            var _serialied = new ReadWriteConfiguration<List<RentedBike>>("rentHistory.xml");
+            var _serialied = new ReadWriteConfiguration<List<RentedBikeHistory>>("rentHistory.xml");
             var _rentHistory = _serialied.ReadConfiguration();
             if(_rentHistory == null) //brak historii
             {
-                _rentHistory = new List<RentedBike>();
+                _rentHistory = new List<RentedBikeHistory>();
             }
 
-            var _rentedBike = new RentedBike()
+            var _rentedBike = new RentedBikeHistory()
             {
                 GuestNumber = SelectedGuestRoom.GuestNumber,
                 GroupNumber = SelectedGuestRoom.GroupNumber,
@@ -213,7 +243,7 @@ namespace BikeRental.ViewModels
 
             _serialied.WriteConfiguration(_rentHistory);
 
-            var _rentedBikeToReport = new List<RentedBike>();
+            var _rentedBikeToReport = new List<RentedBikeHistory>();
             _rentedBikeToReport.Add(_rentedBike);
 
             RentalConfirmationReportWindow _window = new RentalConfirmationReportWindow(_rentedBikeToReport, false);

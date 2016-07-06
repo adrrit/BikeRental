@@ -22,7 +22,7 @@ namespace BikeRental.ReportViewer
     /// </summary>
     public partial class RentalConfirmationReportWindow : Window
     {
-        public RentalConfirmationReportWindow(List<RentedBike> _document, bool printWithPreview)
+        public RentalConfirmationReportWindow(List<RentedBikeHistory> _document, bool printWithPreview)
         {
             InitializeComponent();
             ReportDataSource reportDataSource = new ReportDataSource();
