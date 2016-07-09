@@ -115,31 +115,39 @@ namespace BikeRental.ViewModels
                 if (_messageBoxResoult == MessageDialogResult.Affirmative)
                 {
                     //zapis do bazy
-                    using (var sw =new StreamWriter("sql.txt"))
+                    try
                     {
-                         sw.Write( string.Format("insert into rachpok_table "
-                                            +"(nrp, nrmel, rodzmel, nrg, datar, npx1, nru, "
-                                            +"czasu, cenajed, znizka, cenatot, czyzap, zapl, nrp2, nrrach, pozkas, komen, "
-                                            +"wys, nrrez, nrzal, npx2, nroz, wiger, ilzw, warzw) values "
-                                            +"('{0}', {1}, '{2}', {3}, '{4}', '', 534, "
-                                            +" 1, {5}, 0, {5}, 'N', 0, '','', 0, '{6}',"
-                                            +" 0, '', 0, '', 0, 0, 0, 0)",
-                                            SelectedGuestRoom.RoomNumber,
-                                            SelectedGuestRoom.GuestNumber,
-                                            SelectedGuestRoom.GuestType,
-                                            SelectedGuestRoom.GroupNumber,
-                                            DateTime.Now.ToString(),
-                                            PriceToPay,
-                                            "WR " + _document.DocNumber
-                                            ));
-                        
-                    }
+                        using (var _database = new MysqlSupport())
+                        {
+                            _database.Query = string.Format("insert into rachpok_table "
+                                                + "(nrp, nrmel, rodzmel, nrg, datar, npx1, nru, "
+                                                + "czasu, cenajed, znizka, cenatot, czyzap, zapl, nrp2, nrrach, pozkas, komen, "
+                                                + "wys, nrrez, nrzal, npx2, nroz, wiger, ilzw, warzw) values "
+                                                + "('{0}', {1}, '{2}', {3}, '{4}', '', 534, "
+                                                + " 1, {5}, 0, {5}, 'N', 0, '','', 0, '{6}',"
+                                                + " 0, '', 0, '', 0, 0, 0, 0)",
+                                                SelectedGuestRoom.RoomNumber,
+                                                SelectedGuestRoom.GuestNumber,
+                                                SelectedGuestRoom.GuestType,
+                                                SelectedGuestRoom.GroupNumber,
+                                                DateTime.Now.ToString(),
+                                                PriceToPay,
+                                                "WR " + _document.DocNumber
+                                                );
+                            _database.ExecuteNonQuery();
+
+                        }
                         //Drukowanie, zapis udany - zwiększ counter
                         _dokNumber.DocumentNumber += 1;
-                    var _serialize = new ReadWriteConfiguration<Counter>("counter.xml");
-                    _serialize.WriteConfiguration(_dokNumber);
+                        var _serialize = new ReadWriteConfiguration<Counter>("counter.xml");
+                        _serialize.WriteConfiguration(_dokNumber);
 
-                    ClearNumber(); //Czyść wszystko po poprawnym zapisaniu, drukowaniu
+                        ClearNumber(); //Czyść wszystko po poprawnym zapisaniu, drukowaniu
+                    }
+                    catch(Exception ex)
+                    {
+                        _logger.LoggError(ex.Message);
+                    }
                 }
                 else
                 {
