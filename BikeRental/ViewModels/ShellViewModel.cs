@@ -20,7 +20,9 @@ namespace BikeRental.ViewModels
             _eventAggregator.Subscribe(this);
 
             // Show MainView on app startup
-            ShowMainView(); 
+            ShowMainView();
+
+            DisplayName = "Bike Rental HG";
         }
 
         public void Handle(NavigationMessage message)

@@ -41,7 +41,7 @@ namespace BikeRental.ViewModels
 
             _logger = new FileErrorLogger();
 
-            UserLabel = "Wojciech Kukuczka";
+            UserLabel = "Wojciech Kukuczka";           
         }
 
         private BindableCollection<Guest> _guestRoom = new BindableCollection<Guest>();
@@ -117,26 +117,9 @@ namespace BikeRental.ViewModels
                     //zapis do bazy
                     try
                     {
-                        using (var _database = new MysqlSupport())
-                        {
-                            _database.Query = string.Format("insert into rachpok_table "
-                                                + "(nrp, nrmel, rodzmel, nrg, datar, npx1, nru, "
-                                                + "czasu, cenajed, znizka, cenatot, czyzap, zapl, nrp2, nrrach, pozkas, komen, "
-                                                + "wys, nrrez, nrzal, npx2, nroz, wiger, ilzw, warzw) values "
-                                                + "('{0}', {1}, '{2}', {3}, '{4}', '', 534, "
-                                                + " 1, {5}, 0, {5}, 'N', 0, '','', 0, '{6}',"
-                                                + " 0, '', 0, '', 0, 0, 0, 0)",
-                                                SelectedGuestRoom.RoomNumber,
-                                                SelectedGuestRoom.GuestNumber,
-                                                SelectedGuestRoom.GuestType,
-                                                SelectedGuestRoom.GroupNumber,
-                                                DateTime.Now.ToString(),
-                                                PriceToPay,
-                                                "WR " + _document.DocNumber
-                                                );
-                            _database.ExecuteNonQuery();
+                        //zapis rachunku do bazy
+                        ReceiptService.InsertReceipt(SelectedGuestRoom, PriceToPay, _document, _logger);
 
-                        }
                         //Drukowanie, zapis udany - zwiększ counter
                         _dokNumber.DocumentNumber += 1;
                         var _serialize = new ReadWriteConfiguration<Counter>("counter.xml");
@@ -253,9 +236,10 @@ namespace BikeRental.ViewModels
 
             var _rentedBikeToReport = new List<RentedBikeHistory>();
             _rentedBikeToReport.Add(_rentedBike);
-
-            RentalConfirmationReportWindow _window = new RentalConfirmationReportWindow(_rentedBikeToReport, false);
-            
+            for (int i = 0; i < 2; i++)
+            {
+                RentalConfirmationReportWindow _window = new RentalConfirmationReportWindow(_rentedBikeToReport, false);
+            }
             ClearNumber();
         }
         public bool ButtonEnableState

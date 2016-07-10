@@ -129,6 +129,7 @@
     <Compile Include="Classes\MysqlSupport.cs" />
     <Compile Include="Classes\PlChar.cs" />
     <Compile Include="Classes\ReadWriteConfiguration.cs" />
+    <Compile Include="Classes\ReceiptService.cs" />
     <Compile Include="Interfaces\IErrorLogging.cs" />
     <Compile Include="Messages\NavigationMessage.cs" />
     <Compile Include="Notifications\MetroMessageBox.cs" />
