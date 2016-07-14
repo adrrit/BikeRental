@@ -3,6 +3,7 @@ using BikeRental.POCO;
 using System;
 using System.Collections.Generic;
 using MySql.Data.MySqlClient;
+using System.IO;
 
 namespace BikeRental.Classes
 {
@@ -50,6 +51,11 @@ namespace BikeRental.Classes
         public void ExecuteNonQuery()
         {
             MySqlCommand command = new MySqlCommand(Query, connection);
+
+            //using (var wr = new StreamWriter("logmysql.txt"))
+            //{
+            //    wr.Write(Query);
+            //}
             command.ExecuteNonQuery();
         }
 

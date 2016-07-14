@@ -17,11 +17,12 @@ namespace BikeRental.Classes
             {
                 using (var _database = new MysqlSupport())
                 {
+                  
                     _database.Query = string.Format("insert into rachpok_table "
                                         + "(nrp, nrmel, rodzmel, nrg, datar, npx1, nru, "
                                         + "czasu, cenajed, znizka, cenatot, czyzap, zapl, nrp2, nrrach, pozkas, komen, "
                                         + "wys, nrrez, nrzal, npx2, nroz, wiger, ilzw, warzw) values "
-                                        + "('{0}', {1}, '{2}', {3}, '{4}', '', 534, "
+                                        + "('{0}', {1}, '{2}', '{3}', '{4}', '', 534, "
                                         + " 1, {5}, 0, {5}, 'N', 0, '','', 0, '{6}',"
                                         + " 0, '', 0, '', 0, 0, 0, 0)",
                                         _selectedGuest.RoomNumber,
