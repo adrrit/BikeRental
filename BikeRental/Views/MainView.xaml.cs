@@ -23,8 +23,6 @@ namespace BikeRental.Views
         public MainView()
         {
             InitializeComponent();
-        }
-
-        
+        }        
     }
 }

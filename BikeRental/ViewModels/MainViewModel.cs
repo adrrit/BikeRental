@@ -41,7 +41,7 @@ namespace BikeRental.ViewModels
 
             _logger = new FileErrorLogger();
 
-            UserLabel = "Wojciech Kukuczka";           
+            UserLabel = "Aggeusz Czepczor";           
         }
 
         private BindableCollection<Guest> _guestRoom = new BindableCollection<Guest>();
@@ -288,9 +288,9 @@ namespace BikeRental.ViewModels
                 _toggleSwitchCheckedState = value;
                 NotifyOfPropertyChange(() => ToggleSwitchCheckedState);
                 if (ToggleSwitchCheckedState == false)                
-                    UserLabel = "Wojciech Kukuczka";                
+                    UserLabel = "Aggeusz Czepczor";                
                 else
-                    UserLabel = "Michał Jopek";
+                    UserLabel = "Marek Cholewa";
             }
         }
 
